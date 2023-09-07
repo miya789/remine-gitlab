@@ -22,3 +22,6 @@ Issues を無効化しないと、
 - [ ] https://github.com/koppen/redmine_github_hook
 - [x] https://www.sanei-hy.co.jp/blog/2018/03/00133/
   - mount share
+- [ ] https://www.macnica.co.jp/en/business/dx/manufacturers/github/blog_20190109.html
+  - need plugin
+  - with GitHub
