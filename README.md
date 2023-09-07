@@ -19,5 +19,6 @@ Issues を無効化しないと、
 
 ## その他
 
-- https://github.com/koppen/redmine_github_hook
-- https://www.sanei-hy.co.jp/blog/2018/03/00133/
+- [ ] https://github.com/koppen/redmine_github_hook
+- [x] https://www.sanei-hy.co.jp/blog/2018/03/00133/
+  - mount share
