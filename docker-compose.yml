@@ -1,0 +1,41 @@
+version: "3.1"
+
+services:
+
+  redmine:
+    image: redmine
+    # restart: always
+    volumes:
+      - ./redmine/plugins:/usr/src/redmine/plugins
+      - ./redmine/repo:/usr/src/redmine/repo
+    networks:
+      - internal
+    ports:
+      - 3000:3000
+
+  gitlab:
+    image: 'gitlab/gitlab-ee:latest'
+    restart: always
+    hostname: 'localhost'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://localhost'
+    networks:
+      - internal
+    ports:
+      - '80:80'
+      - '443:443'
+      - '22:22'
+    volumes:
+      - gitlab-config:/etc/gitlab
+      - gitlab-logs:/var/log/gitlab
+      - gitlab-data:/var/opt/gitlab
+    shm_size: '256m'
+
+volumes:
+  gitlab-config:
+  gitlab-logs:
+  gitlab-data:
+
+networks:
+  internal:
