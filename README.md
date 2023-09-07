@@ -25,3 +25,5 @@ Issues を無効化しないと、
 - [ ] https://www.macnica.co.jp/en/business/dx/manufacturers/github/blog_20190109.html
   - need plugin
   - with GitHub
+- [ ] https://oc-technote.com/github/github-redmine/
+  - iroiro
