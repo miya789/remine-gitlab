@@ -1,6 +1,7 @@
 # 要件
 
 - [ ] Redmine 上で、Git リポジトリの差分を確認できる
+  - `redmine:4.1.1` ならどのプラグインも動いた
 - [x] GitLab 上で、コミットメッセージに記載の ID が Redmine へリンクされる
 
 # 方法
@@ -45,9 +46,11 @@ Redmine と GitLab を連携するプラグイン[^redmine-gitlab-plugin]があ�
 [^redmine-gitlab-plugin]: [Redmine と GitLab の連携プラグインを開発しました！ | フューチャー技術ブログ](https://future-architect.github.io/articles/20210908a/)
 
 いきなりこれは難しそうだが、GitHub[^redmine_github_hook], [^redmine-github-webhooks] なら他にも需要がありそう。
+これはきちんと Redmine のプラグインページ[^github-hook]にあった。
 
 [^redmine_github_hook]: https://github.com/koppen/redmine_github_hook
 [^redmine-github-webhooks]: [Linking GitHub and Redmine - Webhooks - - DX Business -Macnica,Inc.](https://www.macnica.co.jp/en/business/dx/manufacturers/github/blog_20190109.html)
+[^github-hook]: [Github Hook - Plugins - Redmine](https://www.redmine.org/plugins/redmine_github_hook)
 
 ## 2. Redmine チケットへの連携
 
