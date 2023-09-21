@@ -112,3 +112,9 @@ Close 検知で連携する方法[^redmine_github_hook-note]もあるらしい�
 ## Docker による構築
 
 - https://qiita.com/hadacchi/items/ca10939ca016147e225a
+
+## 不明
+
+- https://blog.devplatform.techmatrix.jp/blog/try-gitlab-redmine/
+- https://qiita.com/mima_ita/items/82c5d5da30de3bc47e28
+- https://qiita.com/n_slender/items/54cd282c140fadbbb322
