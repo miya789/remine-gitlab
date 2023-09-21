@@ -65,6 +65,8 @@ Gitlab.private_token = password
 + Gitlab.httparty = {verify: false}
 ```
 
+尚、`read_api`のスコープだけ付与でも、動いた。
+
 [^redmine-gitlab-plugin]: [Redmine と GitLab の連携プラグインを開発しました！ | フューチャー技術ブログ](https://future-architect.github.io/articles/20210908a/)
 [^NARKOZ-gitlab-ignore]: https://github.com/NARKOZ/gitlab/commit/40295b8889c0094babffc81a5d7749d32b0fbda6
 
