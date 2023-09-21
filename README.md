@@ -41,6 +41,10 @@ git clone https://github.com/alphanodes/redmine_messenger.git
 
 ### Web Hooks
 
+アクセストークンはDeveloperでないと使えなかった。
+これをgit configのリモートリポジトリとして設定しておけば使える。
+![アクセストークンの例](doc/image/gitlab_accesstokens.png)
+
 ## 1. GitLab リポジトリの閲覧
 
 基本的に、Redmine のローカルリポジトリが必要になる。
