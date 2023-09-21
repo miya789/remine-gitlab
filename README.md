@@ -29,9 +29,17 @@ git clone https://github.com/alphanodes/redmine_messenger.git
 
 - 「新しいトラッカー」から、適当に「test-tracker」というトラッカーを作成
 
-### プロジ適当に
+### プロジェクト
 
 - 「新しいプロジェクト」から、適当に「test-pj」というプロジェクトを作成
+
+### リポジトリ
+
+| バージョン管理システム | 識別子       | リポジトリのパス                 |
+| ---------------------- | ------------ | -------------------------------- |
+| Git                    | `local-repo` | `/usr/src/redmine/repo/demo.git` |
+
+### Web Hooks
 
 ## 1. GitLab リポジトリの閲覧
 
@@ -42,8 +50,19 @@ git clone https://github.com/alphanodes/redmine_messenger.git
 
 Redmine と GitLab を連携するプラグイン[^redmine-gitlab-plugin]があるらしい。
 従来は、fetch して、Redmine のローカルリポジトリが必要だったが、これを解消可能になるらしい。
+但し、これは自己署名証明書に対応していないので、これが使っているライブラリの作法[^NARKOZ-gitlab-ignore]に則って無効化する必要がある。
+しかも、4.19 に対応していないので、自力で変更が必要。
+こうすれば、Web Hooks 無しで、勝手に同期してくれる。(ローカルなものがあるかは不明)
+
+```diff:ruby
+## Set Gitlab endpoint and token
+Gitlab.endpoint = root_url + '/api/v4'
+Gitlab.private_token = password
++ Gitlab.httparty = {verify: false}
+```
 
 [^redmine-gitlab-plugin]: [Redmine と GitLab の連携プラグインを開発しました！ | フューチャー技術ブログ](https://future-architect.github.io/articles/20210908a/)
+[^NARKOZ-gitlab-ignore]: https://github.com/NARKOZ/gitlab/commit/40295b8889c0094babffc81a5d7749d32b0fbda6
 
 いきなりこれは難しそうだが、GitHub[^redmine_github_hook], [^redmine-github-webhooks] なら他にも需要がありそう。
 これはきちんと Redmine のプラグインページ[^github-hook]にあった。
@@ -51,6 +70,11 @@ Redmine と GitLab を連携するプラグイン[^redmine-gitlab-plugin]があ�
 [^redmine_github_hook]: https://github.com/koppen/redmine_github_hook
 [^redmine-github-webhooks]: [Linking GitHub and Redmine - Webhooks - - DX Business -Macnica,Inc.](https://www.macnica.co.jp/en/business/dx/manufacturers/github/blog_20190109.html)
 [^github-hook]: [Github Hook - Plugins - Redmine](https://www.redmine.org/plugins/redmine_github_hook)
+
+GitLab側のWeb Hooksに於いて、Push Evnetsでも発火するようにすれば通知してくれる。
+![GitLabに於けるWeb Hooksの設定例](doc/image/gitlab_webhooks.png)
+
+尚、`参照用キーワード`で指定したキーワードをコミットメッセージに入れないと、チケットのページにコミットが紐づかない。
 
 ## 2. Redmine チケットへの連携
 
@@ -62,3 +86,23 @@ Issues を無効化して、統合の設定をしておけば、リンクが勝�
 Close 検知で連携する方法[^redmine_github_hook-note]もあるらしい。
 
 [^redmine_github_hook-note]: [GitHub と Redmine を連携させてチケット管理を楽にする方法 | OC テックノート](https://oc-technote.com/github/github-redmine/)
+
+## デバッグ
+
+- リポジトリの権限が、`redmine`で触れない場合
+
+```
+["  GithubHook: Executing command: 'git fetch origin 'refs/heads/master:refs/heads/master''","  GithubHook: Command 'git fetch origin 'refs/heads/master:refs/heads/master'' didn't exit properly. Full output: [\"error: cannot open FETCH_HEAD: Permission denied\\n\"]","  GithubHook: Redmine repository updated: git (Git: 2.9ms, Redmine: 1.7ms)"]
+```
+
+- リポジトリにアクセスできる権限が無い場合
+
+```
+["  GithubHook: Executing command: 'git fetch origin 'refs/heads/master:refs/heads/master''","  GithubHook: Command 'git fetch origin 'refs/heads/master:refs/heads/master'' didn't exit properly. Full output: [\"fatal: could not read Username for 'https://gitlab': No such device or address\\n\"]","  GithubHook: Redmine repository updated: git (Git: 132.1ms, Redmine: 2.1ms)"]
+```
+
+# その他
+
+## Docker による構築
+
+- https://qiita.com/hadacchi/items/ca10939ca016147e225a
