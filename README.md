@@ -68,7 +68,7 @@ Gitlab.private_token = password
 これはきちんと Redmine のプラグインページ[^github-hook]にあった。
 
 [^redmine_github_hook]: https://github.com/koppen/redmine_github_hook
-[^redmine-github-webhooks]: [Linking GitHub and Redmine - Webhooks - - DX Business -Macnica,Inc.](https://www.macnica.co.jp/en/business/dx/manufacturers/github/blog_20190109.html)
+[^redmine-github-webhooks]: [GitHubとRedmineの連携 －Webhooks編－ - DX事業 - マクニカ](https://www.macnica.co.jp/business/dx/manufacturers/github/blog_20190109.html)
 [^github-hook]: [Github Hook - Plugins - Redmine](https://www.redmine.org/plugins/redmine_github_hook)
 
 GitLab側のWeb Hooksに於いて、Push Evnetsでも発火するようにすれば通知してくれる。
