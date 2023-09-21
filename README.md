@@ -41,8 +41,8 @@ git clone https://github.com/alphanodes/redmine_messenger.git
 
 ### Web Hooks
 
-アクセストークンはDeveloperでないと使えなかった。
-これをgit configのリモートリポジトリとして設定しておけば使える。
+アクセストークンは Developer でないと使えなかった。
+これを git config のリモートリポジトリとして設定しておけば使える。
 ![アクセストークンの例](doc/image/gitlab_accesstokens.png)
 
 ## 1. GitLab リポジトリの閲覧
@@ -74,10 +74,10 @@ Gitlab.private_token = password
 これはきちんと Redmine のプラグインページ[^github-hook]にあった。
 
 [^redmine_github_hook]: https://github.com/koppen/redmine_github_hook
-[^redmine-github-webhooks]: [GitHubとRedmineの連携 －Webhooks編－ - DX事業 - マクニカ](https://www.macnica.co.jp/business/dx/manufacturers/github/blog_20190109.html)
+[^redmine-github-webhooks]: [GitHub と Redmine の連携 －Webhooks 編－ - DX 事業 - マクニカ](https://www.macnica.co.jp/business/dx/manufacturers/github/blog_20190109.html)
 [^github-hook]: [Github Hook - Plugins - Redmine](https://www.redmine.org/plugins/redmine_github_hook)
 
-GitLab側のWeb Hooksに於いて、Push Evnetsでも発火するようにすれば通知してくれる。
+GitLab 側の Web Hooks に於いて、Push Evnets でも発火するようにすれば通知してくれる。
 ![GitLabに於けるWeb Hooksの設定例](doc/image/gitlab_webhooks.png)
 
 尚、`参照用キーワード`で指定したキーワードをコミットメッセージに入れないと、チケットのページにコミットが紐づかない。
@@ -105,6 +105,79 @@ Close 検知で連携する方法[^redmine_github_hook-note]もあるらしい�
 
 ```
 ["  GithubHook: Executing command: 'git fetch origin 'refs/heads/master:refs/heads/master''","  GithubHook: Command 'git fetch origin 'refs/heads/master:refs/heads/master'' didn't exit properly. Full output: [\"fatal: could not read Username for 'https://gitlab': No such device or address\\n\"]","  GithubHook: Redmine repository updated: git (Git: 132.1ms, Redmine: 2.1ms)"]
+```
+
+# アクセスログ
+
+## GitLab プラグイン
+
+Redmine にてリポジトリタブをクリックすると、以下へのアクセスが確認された。
+
+```
+172.18.0.2 - - [21/Sep/2023:10:39:15 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/branches?page=1&per_page=50 HTTP/1.1" 200 401 "" "Gitlab Ruby Gem 4.19.0" 2.06
+172.18.0.2 - - [21/Sep/2023:10:39:15 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/branches?page=2&per_page=50 HTTP/1.1" 200 2 "" "Gitlab Ruby Gem 4.19.0" -
+172.18.0.2 - - [21/Sep/2023:10:39:16 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?all=true&since=2023-09-21T10%3A05%3A31Z&page=1&per_page=50 HTTP/1.1" 200 323 "" "Gitlab Ruby Gem 4.19.0" 1.86
+172.18.0.2 - - [21/Sep/2023:10:39:16 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?all=true&since=2023-09-21T10%3A05%3A31Z&page=1&per_page=50 HTTP/1.1" 200 323 "" "Gitlab Ruby Gem 4.19.0" 1.86
+172.18.0.2 - - [21/Sep/2023:10:39:16 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits/1cda7acbb2f9f6045d671f03c26e52ff6a7b29a1/diff HTTP/1.1" 200 268 "" "Gitlab Ruby Gem 4.19.0" 1.46
+172.18.0.2 - - [21/Sep/2023:10:39:16 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?all=true&since=2023-09-21T10%3A05%3A31Z&page=2&per_page=50 HTTP/1.1" 200 2 "" "Gitlab Ruby Gem 4.19.0" -
+172.18.0.2 - - [21/Sep/2023:10:39:16 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/tree?path=&ref=master&page=1&per_page=50 HTTP/1.1" 200 258 "" "Gitlab Ruby Gem 4.19.0" 1.97
+172.18.0.2 - - [21/Sep/2023:10:39:16 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/files/.gitignore?ref=master HTTP/1.1" 200 345 "" "Gitlab Ruby Gem 4.19.0" 1.39
+172.18.0.2 - - [21/Sep/2023:10:39:16 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?path=.gitignore&ref_name=master&per_page=1 HTTP/1.1" 200 332 "" "Gitlab Ruby Gem 4.19.0" 1.87
+172.18.0.2 - - [21/Sep/2023:10:39:16 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/files/.gitlab-ci.yml?ref=master HTTP/1.1" 200 947 "" "Gitlab Ruby Gem 4.19.0" 1.62
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?path=.gitlab-ci.yml&ref_name=master&per_page=1 HTTP/1.1" 200 332 "" "Gitlab Ruby Gem 4.19.0" 1.86
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/files/README.md?ref=master HTTP/1.1" 200 2801 "" "Gitlab Ruby Gem 4.19.0" 1.86
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?path=README.md&ref_name=master&per_page=1 HTTP/1.1" 200 323 "" "Gitlab Ruby Gem 4.19.0" 1.86
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/files/SUMMARY.md?ref=master HTTP/1.1" 200 378 "" "Gitlab Ruby Gem 4.19.0" 1.36
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?path=SUMMARY.md&ref_name=master&per_page=1 HTTP/1.1" 200 326 "" "Gitlab Ruby Gem 4.19.0" 1.88
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/tree?path=&ref=master&page=2&per_page=50 HTTP/1.1" 200 2 "" "Gitlab Ruby Gem 4.19.0" -
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?path=&ref_name=master&per_page=10 HTTP/1.1" 200 942 "" "Gitlab Ruby Gem 4.19.0" 6.17
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/tags?page=1&per_page=50 HTTP/1.1" 200 2 "" "Gitlab Ruby Gem 4.19.0" -
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/branches?page=1&per_page=50 HTTP/1.1" 200 401 "" "Gitlab Ruby Gem 4.19.0" 2.06
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/branches?page=2&per_page=50 HTTP/1.1" 200 2 "" "Gitlab Ruby Gem 4.19.0" -
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?all=true&since=2023-09-21T10%3A05%3A31Z&page=1&per_page=50 HTTP/1.1" 200 323 "" "Gitlab Ruby Gem 4.19.0" 1.86
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?all=true&since=2023-09-21T10%3A05%3A31Z&page=1&per_page=50 HTTP/1.1" 200 323 "" "Gitlab Ruby Gem 4.19.0" 1.86
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits/1cda7acbb2f9f6045d671f03c26e52ff6a7b29a1/diff HTTP/1.1" 200 268 "" "Gitlab Ruby Gem 4.19.0" 1.46
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?all=true&since=2023-09-21T10%3A05%3A31Z&page=2&per_page=50 HTTP/1.1" 200 2 "" "Gitlab Ruby Gem 4.19.0" -
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/tree?path=&ref=master&page=1&per_page=50 HTTP/1.1" 200 258 "" "Gitlab Ruby Gem 4.19.0" 1.97
+172.18.0.2 - - [21/Sep/2023:10:39:17 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/files/.gitignore?ref=master HTTP/1.1" 200 345 "" "Gitlab Ruby Gem 4.19.0" 1.39
+172.18.0.2 - - [21/Sep/2023:10:39:18 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?path=.gitignore&ref_name=master&per_page=1 HTTP/1.1" 200 332 "" "Gitlab Ruby Gem 4.19.0" 1.87
+172.18.0.2 - - [21/Sep/2023:10:39:18 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/files/.gitlab-ci.yml?ref=master HTTP/1.1" 200 947 "" "Gitlab Ruby Gem 4.19.0" 1.62
+172.18.0.2 - - [21/Sep/2023:10:39:18 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?path=.gitlab-ci.yml&ref_name=master&per_page=1 HTTP/1.1" 200 332 "" "Gitlab Ruby Gem 4.19.0" 1.86
+172.18.0.2 - - [21/Sep/2023:10:39:18 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/files/README.md?ref=master HTTP/1.1" 200 2801 "" "Gitlab Ruby Gem 4.19.0" 1.86
+172.18.0.2 - - [21/Sep/2023:10:39:18 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?path=README.md&ref_name=master&per_page=1 HTTP/1.1" 200 323 "" "Gitlab Ruby Gem 4.19.0" 1.86
+172.18.0.2 - - [21/Sep/2023:10:39:18 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/files/SUMMARY.md?ref=master HTTP/1.1" 200 378 "" "Gitlab Ruby Gem 4.19.0" 1.36
+172.18.0.2 - - [21/Sep/2023:10:39:18 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?path=SUMMARY.md&ref_name=master&per_page=1 HTTP/1.1" 200 326 "" "Gitlab Ruby Gem 4.19.0" 1.88
+172.18.0.2 - - [21/Sep/2023:10:39:18 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/tree?path=&ref=master&page=2&per_page=50 HTTP/1.1" 200 2 "" "Gitlab Ruby Gem 4.19.0" -
+172.18.0.2 - - [21/Sep/2023:10:39:18 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?path=&ref_name=master&per_page=10 HTTP/1.1" 200 942 "" "Gitlab Ruby Gem 4.19.0" 6.17
+172.18.0.2 - - [21/Sep/2023:10:39:18 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/tags?page=1&per_page=50 HTTP/1.1" 200 2 "" "Gitlab Ruby Gem 4.19.0" -
+127.0.0.1 - - [21/Sep/2023:10:39:20 +0000] "GET /help HTTP/1.1" 200 71357 "" "curl/7.87.0-DEV" -
+```
+
+## GitHub プラグイン
+
+GitLab にて master ブランチで更新を掛けると、以下へのアクセスが確認された。(Web IDE によるものも含む)
+
+```
+172.18.0.1 - - [21/Sep/2023:10:41:31 +0000] "GET /gitlab-instance-41707d42/demo/commit/1cda7acbb2f9f6045d671f03c26e52ff6a7b29a1/pipelines HTTP/2.0" 301 173 "https://localhost/-/ide/project/gitlab-instance-41707d42/demo/tree/master/-/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.31" -
+172.18.0.1 - - [21/Sep/2023:10:41:31 +0000] "GET /gitlab-instance-41707d42/demo/-/commit/1cda7acbb2f9f6045d671f03c26e52ff6a7b29a1/pipelines HTTP/2.0" 200 1086 "https://localhost/-/ide/project/gitlab-instance-41707d42/demo/tree/master/-/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.31" 3.17
+172.18.0.1 - - [21/Sep/2023:10:41:31 +0000] "POST /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits HTTP/2.0" 201 668 "https://localhost/-/ide/project/gitlab-instance-41707d42/demo/tree/master/-/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.31" -
+172.18.0.1 - - [21/Sep/2023:10:41:31 +0000] "POST /gitlab-instance-41707d42/demo/ide_terminals/check_config HTTP/2.0" 422 0 "https://localhost/-/ide/project/gitlab-instance-41707d42/demo/tree/master/-/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.31" -
+172.18.0.1 - - [21/Sep/2023:10:41:31 +0000] "GET /assets/webpack/yaml.fe43b05f.worker.js HTTP/2.0" 200 351681 "https://localhost/-/ide/project/gitlab-instance-41707d42/demo/tree/master/-/README.md/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.31" -
+172.18.0.1 - - [21/Sep/2023:10:41:31 +0000] "GET /assets/webpack/editor.84a8ae44.worker.js HTTP/2.0" 200 44179 "https://localhost/-/ide/project/gitlab-instance-41707d42/demo/tree/master/-/README.md/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.31" -
+172.18.0.1 - - [21/Sep/2023:10:41:31 +0000] "GET /api/v4/projects/34/runners?scope=active HTTP/2.0" 200 2 "https://localhost/-/ide/project/gitlab-instance-41707d42/demo/tree/master/-/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.31" -
+172.18.0.1 - - [21/Sep/2023:10:41:31 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/branches/master HTTP/2.0" 200 381 "https://localhost/-/ide/project/gitlab-instance-41707d42/demo/tree/master/-/README.md/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.31" 2.07
+172.18.0.2 - - [21/Sep/2023:10:41:32 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/branches?page=1&per_page=50 HTTP/1.1" 200 393 "" "Gitlab Ruby Gem 4.19.0" 2.08
+172.18.0.2 - - [21/Sep/2023:10:41:32 +0000] "GET /gitlab-instance-41707d42/demo.git/info/refs?service=git-upload-pack HTTP/2.0" 401 265 "" "git/2.20.1" -
+172.18.0.2 - redmine [21/Sep/2023:10:41:32 +0000] "GET /gitlab-instance-41707d42/demo.git/info/refs?service=git-upload-pack HTTP/2.0" 200 295 "" "git/2.20.1" -
+172.18.0.2 - - [21/Sep/2023:10:41:32 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/branches?page=2&per_page=50 HTTP/1.1" 200 2 "" "Gitlab Ruby Gem 4.19.0" -
+172.18.0.2 - redmine [21/Sep/2023:10:41:32 +0000] "POST /gitlab-instance-41707d42/demo.git/git-upload-pack HTTP/2.0" 200 1315 "" "git/2.20.1" -
+172.18.0.2 - - [21/Sep/2023:10:41:32 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?all=true&since=2023-09-21T10%3A05%3A31Z&page=1&per_page=50 HTTP/1.1" 200 385 "" "Gitlab Ruby Gem 4.19.0" 3.08
+172.18.0.2 - - [21/Sep/2023:10:41:32 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?all=true&since=2023-09-21T10%3A05%3A31Z&page=1&per_page=50 HTTP/1.1" 200 385 "" "Gitlab Ruby Gem 4.19.0" 3.08
+172.18.0.2 - - [21/Sep/2023:10:41:32 +0000] "GET /gitlab-instance-41707d42/demo.git/info/refs?service=git-upload-pack HTTP/2.0" 401 265 "" "git/2.20.1" -
+172.18.0.2 - - [21/Sep/2023:10:41:32 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits/1cda7acbb2f9f6045d671f03c26e52ff6a7b29a1/diff HTTP/1.1" 200 268 "" "Gitlab Ruby Gem 4.19.0" 1.46
+172.18.0.2 - redmine [21/Sep/2023:10:41:32 +0000] "GET /gitlab-instance-41707d42/demo.git/info/refs?service=git-upload-pack HTTP/2.0" 200 295 "" "git/2.20.1" -
+172.18.0.2 - - [21/Sep/2023:10:41:32 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits/0c7bf8fd16b615b3e217a83ff44dde35e6a2f63a/diff HTTP/1.1" 200 251 "" "Gitlab Ruby Gem 4.19.0" 1.45
+172.18.0.2 - - [21/Sep/2023:10:41:32 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?all=true&since=2023-09-21T10%3A05%3A31Z&page=2&per_page=50 HTTP/1.1" 200 2 "" "Gitlab Ruby Gem 4.19.0" -
 ```
 
 # その他
