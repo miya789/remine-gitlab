@@ -33,11 +33,16 @@ git clone https://github.com/alphanodes/redmine_messenger.git
 
 - 「新しいプロジェクト」から、適当に「test-pj」というプロジェクトを作成
 
+### 管理 > 設定
+
+- `Gitlab` にチェック
+
 ### リポジトリ
 
-| バージョン管理システム | 識別子       | リポジトリのパス                 |
-| ---------------------- | ------------ | -------------------------------- |
-| Git                    | `local-repo` | `/usr/src/redmine/repo/demo.git` |
+| バージョン管理システム | 識別子        | リポジトリのパス                                   |
+| ---------------------- | ------------- | -------------------------------------------------- |
+| Git                    | `local-repo`  | `/usr/src/redmine/repo/demo.git`                   |
+| Gitlab                 | `remote-repo` | `https://gitlab/gitlab-instance-41707d42/demo.git` |
 
 ### Web Hooks
 
@@ -69,6 +74,10 @@ Gitlab.private_token = password
 
 [^redmine-gitlab-plugin]: [Redmine と GitLab の連携プラグインを開発しました！ | フューチャー技術ブログ](https://future-architect.github.io/articles/20210908a/)
 [^NARKOZ-gitlab-ignore]: https://github.com/NARKOZ/gitlab/commit/40295b8889c0094babffc81a5d7749d32b0fbda6
+
+連携に成功すると、以下の様にリポジトリが閲覧可能となる。
+![リビジョンのページ](doc/image/redmine-gitlab-repo-1.png)
+![リビジョン間の差分](doc/image/redmine-gitlab-repo-2.png)
 
 いきなりこれは難しそうだが、GitHub[^redmine_github_hook], [^redmine-github-webhooks] なら他にも需要がありそう。
 これはきちんと Redmine のプラグインページ[^github-hook]にあった。
