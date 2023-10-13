@@ -78,6 +78,8 @@ Gitlab.private_token = password
 連携に成功すると、以下の様にリポジトリが閲覧可能となる。
 ![リビジョンのページ](doc/image/redmine-gitlab-repo-1.png)
 ![リビジョン間の差分](doc/image/redmine-gitlab-repo-2.png)
+更に、個別のファイルを開けば、ダウンロードボタンがある。
+![リビジョン間の差分](doc/image/redmine-gitlab-repo-3.png)
 
 いきなりこれは難しそうだが、GitHub[^redmine_github_hook], [^redmine-github-webhooks] なら他にも需要がありそう。
 これはきちんと Redmine のプラグインページ[^github-hook]にあった。
