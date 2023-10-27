@@ -191,6 +191,95 @@ GitLab にて master ブランチで更新を掛けると、以下へのアク�
 172.18.0.2 - - [21/Sep/2023:10:41:32 +0000] "GET /api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/commits?all=true&since=2023-09-21T10%3A05%3A31Z&page=2&per_page=50 HTTP/1.1" 200 2 "" "Gitlab Ruby Gem 4.19.0" -
 ```
 
+## Redmine
+
+Redmine 側では、リポジトリを閲覧した人がアクセスログとして残る
+
+```
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:00.519858 #1]  INFO -- :   Rendered common/_tabs.html.erb (40.0ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:00.519919 #1]  INFO -- :   Rendered settings/edit.html.erb within layouts/admin (40.2ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:00.520926 #1]  INFO -- :   Rendered admin/_menu.html.erb (0.9ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:00.521004 #1]  INFO -- :   Rendering layouts/base.html.erb
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:00.524098 #1]  INFO -- :   Rendered layouts/base.html.erb (3.1ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:00.524277 #1]  INFO -- : Completed 200 OK in 54ms (Views: 41.2ms | ActiveRecord: 10.1ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.716871 #1]  INFO -- : Started GET "/projects/demo?jump=settings" for 172.18.0.1 at 2023-10-27 05:57:31 +0000
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.717582 #1]  INFO -- : Processing by ProjectsController#show as HTML
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.717619 #1]  INFO -- :   Parameters: {"jump"=>"settings", "id"=>"demo"}
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.726150 #1]  INFO -- :   Current user: admin (id=1)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.727506 #1]  INFO -- : Redirected to http://localhost:3000/projects/demo/settings
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.728081 #1]  INFO -- : Completed 302 Found in 10ms (ActiveRecord: 6.7ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.732960 #1]  INFO -- : Started GET "/projects/demo/settings" for 172.18.0.1 at 2023-10-27 05:57:31 +0000
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.733362 #1]  INFO -- : Processing by ProjectsController#settings as HTML
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.733377 #1]  INFO -- :   Parameters: {"id"=>"demo"}
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.740947 #1]  INFO -- :   Current user: admin (id=1)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.743512 #1]  INFO -- :   Rendering projects/settings.html.erb within layouts/base
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.747609 #1]  INFO -- :   Rendered projects/_form.html.erb (2.6ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.747774 #1]  INFO -- :   Rendered projects/_edit.html.erb (3.0ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.748938 #1]  INFO -- :   Rendered projects/settings/_members.html.erb (1.1ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.751493 #1]  INFO -- :   Rendered projects/settings/_issues.html.erb (2.5ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.752512 #1]  INFO -- :   Rendered projects/settings/_versions.html.erb (0.9ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.753043 #1]  INFO -- :   Rendered projects/settings/_issue_categories.html.erb (0.5ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.754010 #1]  INFO -- :   Rendered projects/settings/_repositories.html.erb (0.9ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.754478 #1]  INFO -- :   Rendered projects/settings/_boards.html.erb (0.4ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.755872 #1]  INFO -- :   Rendered projects/settings/_activities.html.erb (1.3ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.755913 #1]  INFO -- :   Rendered common/_tabs.html.erb (11.8ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.755970 #1]  INFO -- :   Rendered projects/settings.html.erb within layouts/base (12.4ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:31.764026 #1]  INFO -- : Completed 200 OK in 31ms (Views: 18.9ms | ActiveRecord: 7.9ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:34.976226 #1]  INFO -- : Started GET "/projects/demo/repository/gitlab" for 172.18.0.1 at 2023-10-27 05:57:34 +0000
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:34.976824 #1]  INFO -- : Processing by RepositoriesController#show as HTML
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:34.976855 #1]  INFO -- :   Parameters: {"id"=>"demo", "repository_id"=>"gitlab"}
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:35.004343 #1]  INFO -- :   Current user: admin (id=1)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:35.055167 #1]  INFO -- :   Rendering common/error.html.erb within layouts/base
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:35.055294 #1]  INFO -- :   Rendered common/error.html.erb within layouts/base (0.1ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:57:35.063237 #1]  INFO -- : Completed 404 Not Found in 86ms (Views: 7.7ms | ActiveRecord: 26.6ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:04.697600 #1]  INFO -- : Started GET "/repositories/1/edit" for 172.18.0.1 at 2023-10-27 05:59:04 +0000
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:04.698134 #1]  INFO -- : Processing by RepositoriesController#edit as HTML
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:04.698156 #1]  INFO -- :   Parameters: {"id"=>"1"}
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:04.707576 #1]  INFO -- :   Current user: admin (id=1)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:04.709076 #1]  INFO -- :   Rendering repositories/edit.html.erb within layouts/base
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:04.710693 #1]  INFO -- :   Rendered repositories/_form.html.erb (1.4ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:04.710847 #1]  INFO -- :   Rendered repositories/edit.html.erb within layouts/base (1.7ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:04.717999 #1]  INFO -- : Completed 200 OK in 20ms (Views: 8.5ms | ActiveRecord: 8.4ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.267112 #1]  INFO -- : Started PUT "/repositories/1" for 172.18.0.1 at 2023-10-27 05:59:07 +0000
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.267616 #1]  INFO -- : Processing by RepositoriesController#update as HTML
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.267640 #1]  INFO -- :   Parameters: {"utf8"=>"✓", "authenticity_token"=>"aJ1EyOY1R+kNJuSEok//mMkRErVH0um66DhgWPxvkz9ZDZiowsZEQ8fAkf8nbaz8JS6ejzcWG4lkef21hq3ZFQ==", "repository"=>{"is_default"=>"1", "password"=>"[FILTERED]", "root_url"=>"https://gitlab", "report_last_commit"=>"0"}, "commit"=>"保存", "id"=>"1"}
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.285632 #1]  INFO -- :   Current user: admin (id=1)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.297346 #1]  INFO -- : Redirected to http://localhost:3000/projects/demo/settings/repositories
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.298154 #1]  INFO -- : Completed 302 Found in 30ms (ActiveRecord: 25.4ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.304159 #1]  INFO -- : Started GET "/projects/demo/settings/repositories" for 172.18.0.1 at 2023-10-27 05:59:07 +0000
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.304583 #1]  INFO -- : Processing by ProjectsController#settings as HTML
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.304599 #1]  INFO -- :   Parameters: {"id"=>"demo", "tab"=>"repositories"}
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.312514 #1]  INFO -- :   Current user: admin (id=1)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.315022 #1]  INFO -- :   Rendering projects/settings.html.erb within layouts/base
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.319499 #1]  INFO -- :   Rendered projects/_form.html.erb (2.7ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.319667 #1]  INFO -- :   Rendered projects/_edit.html.erb (3.0ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.320795 #1]  INFO -- :   Rendered projects/settings/_members.html.erb (1.1ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.322927 #1]  INFO -- :   Rendered projects/settings/_issues.html.erb (2.1ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.323879 #1]  INFO -- :   Rendered projects/settings/_versions.html.erb (0.9ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.324365 #1]  INFO -- :   Rendered projects/settings/_issue_categories.html.erb (0.4ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.325241 #1]  INFO -- :   Rendered projects/settings/_repositories.html.erb (0.8ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.325679 #1]  INFO -- :   Rendered projects/settings/_boards.html.erb (0.4ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.326981 #1]  INFO -- :   Rendered projects/settings/_activities.html.erb (1.2ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.327021 #1]  INFO -- :   Rendered common/_tabs.html.erb (11.2ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.327060 #1]  INFO -- :   Rendered projects/settings.html.erb within layouts/base (12.0ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:07.334839 #1]  INFO -- : Completed 200 OK in 30ms (Views: 18.3ms | ActiveRecord: 8.6ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:08.857404 #1]  INFO -- : Started GET "/projects/demo/repository/gitlab" for 172.18.0.1 at 2023-10-27 05:59:08 +0000
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:08.857908 #1]  INFO -- : Processing by RepositoriesController#show as HTML
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:08.857929 #1]  INFO -- :   Parameters: {"id"=>"demo", "repository_id"=>"gitlab"}
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:08.865092 #1]  INFO -- :   Current user: admin (id=1)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:12.318413 #1]  INFO -- :   Rendering repositories/show.html.erb within layouts/base
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:12.364862 #1]  INFO -- :   Rendered repositories/_navigation.html.erb (44.6ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:12.366847 #1]  INFO -- :   Rendered repositories/_breadcrumbs.html.erb (0.9ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:12.374587 #1]  INFO -- :   Rendered repositories/_dir_list_content.html.erb (5.8ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:12.374622 #1]  INFO -- :   Rendered repositories/_dir_list.html.erb (7.0ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:12.382105 #1]  INFO -- :   Rendered repositories/_revision_graph.html.erb (0.9ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:12.393246 #1]  INFO -- :   Rendered repositories/_revisions.html.erb (17.8ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:12.394408 #1]  INFO -- :   Rendered repositories/show.html.erb within layouts/base (76.0ms)
+redmine-gitlab-redmine-1  | I, [2023-10-27T05:59:12.402543 #1]  INFO -- : Completed 200 OK in 3545ms (Views: 83.5ms | ActiveRecord: 294.0ms)
+redmine-gitlab-redmine-1  | 172.18.0.1 - - [27/Oct/2023:05:59:08 UTC] "GET /projects/demo/repository/gitlab HTTP/1.1" 200 21502
+redmine-gitlab-redmine-1  | http://localhost:3000/projects/demo/settings/repositories -> /projects/demo/repository/gitlab
+```
+
 # その他
 
 ## Docker による構築
