@@ -164,6 +164,34 @@ Redmine にてリポジトリタブをクリックすると、以下へのアク
 127.0.0.1 - - [21/Sep/2023:10:39:20 +0000] "GET /help HTTP/1.1" 200 71357 "" "curl/7.87.0-DEV" -
 ```
 
+また、ユーザー名も残る詳細なアクセスログは以下
+```
+==> /var/log/gitlab/gitlab-rails/production.log <==
+Started GET "/api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/tags?page=1&per_page=50" for 172.18.0.2 at 2023-11-28 09:38:33 +0000
+
+==> /var/log/gitlab/gitlab-rails/api_json.log <==
+{"time":"2023-11-28T09:38:33.401Z","severity":"INFO","duration_s":0.04199,"db_duration_s":0.00523,"view_duration_s":0.03676,"status":200,"method":"GET","path":"/api/v4/projects/gitlab-instance-41707d42%2Fdemo/repository/tags","params":[{"key":"page","value":"1"},{"key":"per_page","value":"50"}],"host":"gitlab","remote_ip":"172.18.0.2, 127.0.0.1","ua":"Gitlab Ruby Gem 4.19.0","route":"/api/:version/projects/:id/repository/tags","user_id":43,"username":"project_34_bot3","token_type":"PersonalAccessToken","token_id":13,"queue_duration_s":0.011633,"gitaly_calls":1,"gitaly_duration_s":0.004198,"redis_calls":3,"redis_duration_s":0.0007909999999999999,"redis_read_bytes":214,"redis_write_bytes":168,"redis_cache_calls":2,"redis_cache_duration_s":0.000542,"redis_cache_read_bytes":214,"redis_cache_write_bytes":114,"redis_shared_state_calls":1,"redis_shared_state_duration_s":0.000249,"redis_shared_state_write_bytes":54,"db_count":10,"db_write_count":0,"db_cached_count":1,"db_replica_count":0,"db_primary_count":10,"db_main_count":10,"db_main_replica_count":0,"db_replica_cached_count":0,"db_primary_cached_count":1,"db_main_cached_count":1,"db_main_replica_cached_count":0,"db_replica_wal_count":0,"db_primary_wal_count":0,"db_main_wal_count":0,"db_main_replica_wal_count":0,"db_replica_wal_cached_count":0,"db_primary_wal_cached_count":0,"db_main_wal_cached_count":0,"db_main_replica_wal_cached_count":0,"db_replica_duration_s":0.0,"db_primary_duration_s":0.006,"db_main_duration_s":0.006,"db_main_replica_duration_s":0.0,"cpu_s":0.048825,"mem_objects":21855,"mem_bytes":1564008,"mem_mallocs":4907,"mem_total_bytes":2438208,"pid":744,"worker_id":"puma_6","rate_limiting_gates":[],"correlation_id":"01HGAMPTQX5TT98W2S6FACJEZM","meta.caller_id":"GET /api/:version/projects/:id/repository/tags","meta.remote_ip":"172.18.0.2","meta.feature_category":"source_code_management","meta.user":"project_34_bot3","meta.user_id":43,"meta.project":"gitlab-instance-41707d42/demo","meta.root_namespace":"gitlab-instance-41707d42","meta.client_id":"user/43","request_urgency":"low","target_duration_s":5}
+```
+
+確認すると以下
+```
+root@localhost:/# gitlab-rails c
+--------------------------------------------------------------------------------
+ Ruby:         ruby 2.7.7p221 (2022-11-24 revision 168ec2b1e5) [x86_64-linux]
+ GitLab:       15.8.1-ee (c49deff6e37) EE
+ GitLab Shell: 14.15.0
+ PostgreSQL:   13.8
+------------------------------------------------------------[ booted in 21.05s ]
+userLoading production environment (Rails 6.1.6.1)
+irb(main):001:0> user = User.find_by(id: 43)
+=> #<User id:43 @project_34_bot3>
+irb(main):002:0> user.name
+=> "redmine"
+```
+
+このアカウントは、管理者メニューから、どのプロジェクトで使われているか等の詳細を確認可能。
+![](doc/image/gitlab-redmine-user.png)
+
 ## GitHub プラグイン
 
 GitLab にて master ブランチで更新を掛けると、以下へのアクセスが確認された。(Web IDE によるものも含む)
